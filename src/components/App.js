@@ -1,6 +1,6 @@
 import '../styles/App.scss';
 import { useState, useEffect } from 'react';
-import callToApi from '../services/api.js'
+import callToApi from '../services/api.js';
 
 function App() {
   //Estado palabra a adivinar
@@ -13,17 +13,12 @@ function App() {
   const [goodLetters, setGoodLetters] = useState([]);
   //Estado letras fallidas
   const [wrongLetters, setWrongLetters] = useState([]);
- 
-
 
   useEffect(() => {
-
-    callToApi().then(response => {
-      console.log(response)
+    callToApi().then((response) => {
+      console.log(response);
       setWord(response);
     });
-    
- 
   }, []);
 
   const handleLastLetter = (ev) => {
@@ -44,7 +39,19 @@ function App() {
     }
   };
 
-  
+  const renderWrongLetters = () => {
+    return wrongLetters.map((letter, index) => {
+      if (wrongLetters.findIndex((currentLetter) => letter === currentLetter) !== -1) {
+        return (
+          <li key={index} className='letter'>
+            {letter}
+          </li>
+        );
+      } else {
+        return <li key={index} className='letter'></li>;
+      }
+    });
+  };
 
   const renderSolutionLetters = () => {
     const wordLetters = word.split('');
@@ -61,8 +68,6 @@ function App() {
     });
   };
 
-
-
   return (
     <div>
       <div className='page'>
@@ -77,13 +82,7 @@ function App() {
             </div>
             <div className='error'>
               <h2 className='title'>Letras falladas:</h2>
-              <ul className='letters'>
-                <li className='letter'>f</li>
-                <li className='letter'>q</li>
-                <li className='letter'>h</li>
-                <li className='letter'>p</li>
-                <li className='letter'>x</li>
-              </ul>
+              <ul className='letters'>{renderWrongLetters()}</ul>
             </div>
             <form className='form'>
               <label className='title' htmlFor='last-letter'>
@@ -100,7 +99,6 @@ function App() {
                 onChange={handleLastLetter}
               />
             </form>
-          
           </section>
           <section className={`dummy error-${wrongLetters.length}`}>
             <span className='error-13 eye'></span>
