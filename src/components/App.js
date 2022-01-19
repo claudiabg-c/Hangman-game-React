@@ -1,6 +1,8 @@
 import '../styles/App.scss';
 import { useState, useEffect } from 'react';
 import callToApi from '../services/api.js';
+import Header from './Header';
+import Dummy from './Dummy';
 
 function App() {
   //Estado palabra a adivinar
@@ -30,9 +32,11 @@ function App() {
         setUserLetters([...userLetters, inputValue]);
         if (word.includes(inputValue)) {
           //Al array de letras buenas
+          //Añadir comprobación de si ya existe para que no la ñada de nuevo.
           setGoodLetters([...goodLetters, inputValue]);
         } else {
           //Al array de letras fallidas
+          //Añadir comprobación de si ya existe para que no la ñada de nuevo.
           setWrongLetters([...wrongLetters, inputValue]);
         }
       }
@@ -71,9 +75,7 @@ function App() {
   return (
     <div>
       <div className='page'>
-        <header>
-          <h1 className='header__title'>Juego del ahorcado</h1>
-        </header>
+        <Header title='Juego del ahorcado' />
         <main className='main'>
           <section>
             <div className='solution'>
@@ -100,21 +102,7 @@ function App() {
               />
             </form>
           </section>
-          <section className={`dummy error-${wrongLetters.length}`}>
-            <span className='error-13 eye'></span>
-            <span className='error-12 eye'></span>
-            <span className='error-11 line'></span>
-            <span className='error-10 line'></span>
-            <span className='error-9 line'></span>
-            <span className='error-8 line'></span>
-            <span className='error-7 line'></span>
-            <span className='error-6 head'></span>
-            <span className='error-5 line'></span>
-            <span className='error-4 line'></span>
-            <span className='error-3 line'></span>
-            <span className='error-2 line'></span>
-            <span className='error-1 line'></span>
-          </section>
+          <Dummy length={wrongLetters.length} />
         </main>
       </div>
     </div>
