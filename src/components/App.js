@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import callToApi from '../services/api.js';
 import Header from './Header';
 import Dummy from './Dummy';
+import ErrorLetters from './ErrorLetters';
+import SolutionLetters from './SolutionLetters';
 
 function App() {
   //Estado palabra a adivinar
@@ -43,34 +45,8 @@ function App() {
     }
   };
 
-  const renderWrongLetters = () => {
-    return wrongLetters.map((letter, index) => {
-      if (wrongLetters.findIndex((currentLetter) => letter === currentLetter) !== -1) {
-        return (
-          <li key={index} className='letter'>
-            {letter}
-          </li>
-        );
-      } else {
-        return <li key={index} className='letter'></li>;
-      }
-    });
-  };
-
-  const renderSolutionLetters = () => {
-    const wordLetters = word.split('');
-    return wordLetters.map((letter, index) => {
-      if (goodLetters.findIndex((currentLetter) => letter === currentLetter) !== -1) {
-        return (
-          <li key={index} className='letter'>
-            {letter}
-          </li>
-        );
-      } else {
-        return <li key={index} className='letter'></li>;
-      }
-    });
-  };
+  
+  
 
   return (
     <div>
@@ -78,14 +54,8 @@ function App() {
         <Header title='Juego del ahorcado' />
         <main className='main'>
           <section>
-            <div className='solution'>
-              <h2 className='title'>Solución:</h2>
-              <ul className='letters'>{renderSolutionLetters()}</ul>
-            </div>
-            <div className='error'>
-              <h2 className='title'>Letras falladas:</h2>
-              <ul className='letters'>{renderWrongLetters()}</ul>
-            </div>
+            <SolutionLetters word={word} goodLetters={goodLetters}/>
+            <ErrorLetters wrongLetters={wrongLetters} />
             <form className='form'>
               <label className='title' htmlFor='last-letter'>
                 Escribe una letra:
