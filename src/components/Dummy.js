@@ -1,3 +1,4 @@
+import '../styles/layout/Dummy.scss';
 const Dummy = (props) => {
   return (
     <section className={`dummy error-${props.length}`}>

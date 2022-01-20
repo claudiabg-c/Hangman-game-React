@@ -1,3 +1,5 @@
+import '../styles/layout/Letters.scss';
+
 const ErrorLetters = (props) => {
     const renderWrongLetters = () => {
         return props.wrongLetters.map((letter, index) => {

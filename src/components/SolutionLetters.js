@@ -1,3 +1,5 @@
+import '../styles/layout/Letters.scss';
+
 const SolutionLetters = (props) => {
     const renderSolutionLetters = () => {
         const wordLetters = props.word.split('');

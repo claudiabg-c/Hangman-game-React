@@ -1,3 +1,4 @@
+import '../styles/layout/Header.scss';
 const Header = (props) => {
   return (
     <header>
