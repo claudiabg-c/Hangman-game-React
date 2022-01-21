@@ -6,6 +6,7 @@ import Dummy from "./Dummy";
 import ErrorLetters from "./ErrorLetters";
 import SolutionLetters from "./SolutionLetters";
 import Form from "./Form";
+import Footer from "./Footer";
 
 function App() {
   //Estado palabra a adivinar
@@ -55,6 +56,7 @@ function App() {
           </section>
           <Dummy length={wrongLetters.length} />
         </main>
+        <Footer />
       </div>
     </div>
   );

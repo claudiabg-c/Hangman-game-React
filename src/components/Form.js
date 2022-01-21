@@ -1,3 +1,5 @@
+import "../styles/layout/Form.scss";
+
 function Form(props) {
   const handleLetter = (ev) => {
     props.handleLastLetter(ev);
