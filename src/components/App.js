@@ -1,18 +1,17 @@
-import '../styles/App.scss';
-import { useState, useEffect } from 'react';
-import callToApi from '../services/api.js';
-import Header from './Header';
-import Dummy from './Dummy';
-import ErrorLetters from './ErrorLetters';
-import SolutionLetters from './SolutionLetters';
+import "../styles/App.scss";
+import { useState, useEffect } from "react";
+import callToApi from "../services/api.js";
+import Header from "./Header";
+import Dummy from "./Dummy";
+import ErrorLetters from "./ErrorLetters";
+import SolutionLetters from "./SolutionLetters";
+import Form from "./Form";
 
 function App() {
   //Estado palabra a adivinar
-  const [word, setWord] = useState('');
+  const [word, setWord] = useState("");
   //Estado letras que introduce la jugadora
   const [userLetters, setUserLetters] = useState([]);
-  //Estado la última letra introducida por la jugadora
-  const [lastLetter, setlastLetter] = useState('');
   //Estado letras buenas
   const [goodLetters, setGoodLetters] = useState([]);
   //Estado letras fallidas
@@ -28,9 +27,8 @@ function App() {
   const handleLastLetter = (ev) => {
     ev.preventDefault();
     const inputValue = ev.currentTarget.value;
-    if (inputValue.match('^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$')) {
-      setlastLetter(inputValue);
-      if (inputValue !== '') {
+    if (inputValue.match("^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$")) {
+      if (inputValue !== "") {
         setUserLetters([...userLetters, inputValue]);
         if (word.includes(inputValue)) {
           //Al array de letras buenas
@@ -45,32 +43,15 @@ function App() {
     }
   };
 
-  
-  
-
   return (
     <div>
-      <div className='page'>
-        <Header title='Juego del ahorcado' />
-        <main className='main'>
+      <div className="page">
+        <Header title="Juego del ahorcado" />
+        <main className="main">
           <section>
-            <SolutionLetters word={word} goodLetters={goodLetters}/>
+            <SolutionLetters word={word} goodLetters={goodLetters} />
             <ErrorLetters wrongLetters={wrongLetters} />
-            <form className='form'>
-              <label className='title' htmlFor='last-letter'>
-                Escribe una letra:
-              </label>
-              <input
-                autoComplete='off'
-                className='form__input'
-                maxLength='1'
-                type='text'
-                name='last-letter'
-                id='last-letter'
-                //value={lastLetter}
-                onChange={handleLastLetter}
-              />
-            </form>
+            <Form handleLastLetter={handleLastLetter} />
           </section>
           <Dummy length={wrongLetters.length} />
         </main>
