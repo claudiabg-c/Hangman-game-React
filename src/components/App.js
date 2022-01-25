@@ -1,19 +1,19 @@
-import '../styles/App.scss';
-import { useState, useEffect } from 'react';
-import callToApi from '../services/api.js';
-import Header from './Header';
-import Dummy from './Dummy';
-import ErrorLetters from './ErrorLetters';
-import SolutionLetters from './SolutionLetters';
-import Form from './Form';
-import Footer from './Footer';
-import Instructions from './Instructions';
-import Options from './Options';
-import { Route, Switch } from 'react-router-dom';
+import "../styles/App.scss";
+import { useState, useEffect } from "react";
+import callToApi from "../services/api.js";
+import Header from "./Header";
+import Dummy from "./Dummy";
+import ErrorLetters from "./ErrorLetters";
+import SolutionLetters from "./SolutionLetters";
+import Form from "./Form";
+import Footer from "./Footer";
+import Instructions from "./Instructions";
+import Options from "./Options";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   //Estado palabra a adivinar
-  const [word, setWord] = useState('');
+  const [word, setWord] = useState("");
   //Estado letras que introduce la jugadora
   const [userLetters, setUserLetters] = useState([]);
   //Estado letras buenas
@@ -31,8 +31,8 @@ function App() {
   const handleLastLetter = (ev) => {
     ev.preventDefault();
     const inputValue = ev.currentTarget.value;
-    if (inputValue.match('^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$')) {
-      if (inputValue !== '') {
+    if (inputValue.match("^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$")) {
+      if (inputValue !== "") {
         setUserLetters([...userLetters, inputValue]);
         if (word.includes(inputValue)) {
           //Al array de letras buenas
@@ -47,25 +47,31 @@ function App() {
     }
   };
 
+  const handleWord = (value) => {
+    setWrongLetters([]);
+    setGoodLetters([]);
+    setWord(value);
+  };
+
   return (
     <div>
-      <div className='page'>
-        <Header title='Juego del ahorcado' />
-        <main className='main'>
+      <div className="page">
+        <Header title="Juego del ahorcado" />
+        <main className="main">
           <Switch>
-            <Route path='/' exact>
+            <Route path="/" exact>
               <section>
                 <SolutionLetters word={word} goodLetters={goodLetters} />
                 <ErrorLetters wrongLetters={wrongLetters} />
                 <Form handleLastLetter={handleLastLetter} />
               </section>
             </Route>
-            <Route path='/instructions'>
+            <Route path="/instructions">
               <Instructions />
             </Route>
 
-            <Route path='/options'>
-              <Options />
+            <Route path="/options">
+              <Options handleWord={handleWord} />
             </Route>
           </Switch>
           <Dummy length={wrongLetters.length} />

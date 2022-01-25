@@ -5,7 +5,7 @@ function Form(props) {
     props.handleLastLetter(ev);
   };
   return (
-    <form className="form">
+    <form className="form" onSubmit={(ev) => ev.preventDefault()}>
       <label className="title" htmlFor="last-letter">
         Escribe una letra:
       </label>
@@ -16,7 +16,6 @@ function Form(props) {
         type="text"
         name="last-letter"
         id="last-letter"
-        //value={lastLetter}
         onChange={handleLetter}
       />
     </form>
