@@ -15,8 +15,6 @@ import { Route, Switch } from "react-router-dom";
 function App() {
   //Estado palabra a adivinar
   const [word, setWord] = useState("");
-  //Estado letras que introduce la jugadora
-  const [userLetters, setUserLetters] = useState([]);
   //Estado letras buenas
   const [goodLetters, setGoodLetters] = useState([]);
   //Estado letras fallidas
@@ -35,21 +33,17 @@ function App() {
   const handleLastLetter = (ev) => {
     ev.preventDefault();
     const inputValue = ev.currentTarget.value;
+  
     if (inputValue.match("^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$")) {
       if (inputValue !== "") {
-        setUserLetters([...userLetters, inputValue]);
         if (word.includes(inputValue)) {
-          //Al array de letras buenas
-          //Añadir comprobación de si ya existe para que no la ñada de nuevo.
-          setGoodLetters([...goodLetters, inputValue]);
-        } else {
-          //Al array de letras fallidas
-          //Añadir comprobación de si ya existe para que no la ñada de nuevo.
-          setWrongLetters([...wrongLetters, inputValue]);
+          setGoodLetters((prev) => [...prev, inputValue]);
+        } else if (!wrongLetters.includes(inputValue)) {
+          setWrongLetters((prev) => [...prev, inputValue]);
         }
       }
     }
-  };
+  };   
 
   const handleWord = (value) => {
     setWrongLetters([]);

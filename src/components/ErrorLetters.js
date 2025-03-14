@@ -1,7 +1,7 @@
 import '../styles/layout/Letters.scss';
 
 const ErrorLetters = (props) => {
-    const renderWrongLetters = () => {
+    const renderWrongLetters = () => {      
         return props.wrongLetters.map((letter, index) => {
           if (props.wrongLetters.findIndex((currentLetter) => letter === currentLetter) !== -1) {
             return (
