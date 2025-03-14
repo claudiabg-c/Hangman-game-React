@@ -19,9 +19,12 @@ function App() {
   const [goodLetters, setGoodLetters] = useState([]);
   // Estado letras fallidas
   const [wrongLetters, setWrongLetters] = useState([]);
+  // Loader mientras la api busca una palabra
   const [isLoading, setIsLoading] = useState(false);
   // Estado para mostrar el popup al perder
   const [isGameOver, setIsGameOver] = useState(false);
+  // Estado para la letra en el input
+  const [inputLetter, setInputLetter] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,7 +38,7 @@ function App() {
   const handleLastLetter = (ev) => {
     ev.preventDefault();
     const inputValue = ev.currentTarget.value;
-  
+
     if (inputValue.match("^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$")) {
       if (inputValue !== "") {
         if (word.includes(inputValue)) {
@@ -73,7 +76,11 @@ function App() {
               <section>
                 <SolutionLetters word={word} goodLetters={goodLetters} />
                 <ErrorLetters wrongLetters={wrongLetters} />
-                <Form handleLastLetter={handleLastLetter} />
+                <Form
+                  handleLastLetter={handleLastLetter}
+                  inputLetter={inputLetter}
+                  setInputLetter={setInputLetter}
+                />
               </section>
             </Route>
             <Route path="/instructions">
