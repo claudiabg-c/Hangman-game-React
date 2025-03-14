@@ -1,15 +1,14 @@
 const Instructions = (props) => {
   return (
-    <section className='instructions'>
+    <section className="instructions">
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident nisi
-        voluptatem est nostrum optio perferendis doloremque, delectus at, assumenda suscipit sit
-        odio ipsum error consequatur numquam vero impedit nulla?
+        Bienvenido al juego del ahorcado. Tu objetivo es adivinar la palabra oculta antes de que el dibujo del ahorcado se complete.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium animi voluptatem quis
-        impedit amet in dicta soluta explicabo, fugit magni mollitia, pariatur eos, repellendus aut
-        esse recusandae minima eum eaque.
+        Para jugar, introduce una letra en el campo de entrada. Si la letra está en la palabra, aparecerá en su posición correspondiente. Si la letra no está en la palabra, se añadirá a la lista de errores y se dibujará una parte del ahorcado.
+      </p>
+      <p>
+        El juego termina cuando logras adivinar la palabra o cuando se completa el dibujo del ahorcado. ¡Buena suerte!
       </p>
     </section>
   );
