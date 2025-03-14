@@ -32,7 +32,10 @@ function App() {
     setIsLoading(true);
     callToApi().then((response) => {
       console.log(response);
-      setWord(response);
+      setWord(response.toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/\./g, "")
+      );
       setIsLoading(false);
     });
   }, []);
@@ -66,7 +69,6 @@ function App() {
         }
       }
     }
-    setInputLetter(""); // Limpia el input después de cada intento
   };
 
   const handleWord = (value) => {
