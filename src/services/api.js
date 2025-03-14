@@ -1,9 +1,9 @@
 // Fichero src/services/api.js
 const callToApi = () => {
-  return fetch(`https://palabras-aleatorias-public-api.herokuapp.com/random`)
+  return fetch(`https://random-word-api.herokuapp.com/word?lang=es`)
     .then((response) => response.json())
-    .then((response) => {
-      const word = response.body.Word;
+    .then((response) => {      
+      const word = response[0]
       return word;
     });
 };
