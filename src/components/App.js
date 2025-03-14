@@ -13,13 +13,15 @@ import Loading from "./Loading";
 import { Route, Switch } from "react-router-dom";
 
 function App() {
-  //Estado palabra a adivinar
+  // Estado palabra a adivinar
   const [word, setWord] = useState("");
-  //Estado letras buenas
+  // Estado letras buenas
   const [goodLetters, setGoodLetters] = useState([]);
-  //Estado letras fallidas
+  // Estado letras fallidas
   const [wrongLetters, setWrongLetters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  // Estado para mostrar el popup al perder
+  const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,16 +41,25 @@ function App() {
         if (word.includes(inputValue)) {
           setGoodLetters((prev) => [...prev, inputValue]);
         } else if (!wrongLetters.includes(inputValue)) {
-          setWrongLetters((prev) => [...prev, inputValue]);
+          if (wrongLetters.length < 12) {
+            setWrongLetters((prev) => [...prev, inputValue]);
+          } else {
+            setIsGameOver(true); // Activar el popup al llegar a 13 fallos
+          }
         }
       }
     }
-  };   
+  };
 
   const handleWord = (value) => {
     setWrongLetters([]);
     setGoodLetters([]);
     setWord(value);
+  };
+
+  // Función para reiniciar el juego
+  const handleReset = () => {
+    window.location.reload();
   };
 
   return (
@@ -77,6 +88,17 @@ function App() {
         </main>
         <Footer />
       </div>
+
+      {/* POPUP MODAL */}
+      {isGameOver && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>¡Has perdido! 😢</h2>
+            <p>La palabra era: <strong>{word}</strong></p>
+            <button onClick={handleReset}>Volver a jugar</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
