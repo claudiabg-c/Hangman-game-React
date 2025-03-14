@@ -23,7 +23,7 @@ function Footer() {
           </li>
         </ul>
       </nav>
-      <small className="footer__copy">© Adalab</small>
+      <small className="footer__copy">© Claudia Berrocal</small>
     </footer>
   );
 }
