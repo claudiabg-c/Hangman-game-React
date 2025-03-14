@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "githubpages": "rm -rf build && rm -rf docs && npm run build && mv build docs && git add docs/* && git commit -m \"Publish in GitHub Pages\" && git push",
+    "githubpages": "rimraf build docs && npm run build && node move-folder.js && git add docs/* && git commit -m \"Publish in GitHub Pages\" && git push",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -38,5 +38,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "fs-extra": "^11.3.0",
+    "rimraf": "^6.0.1"
   }
 }
