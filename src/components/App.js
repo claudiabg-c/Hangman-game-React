@@ -23,6 +23,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   // Estado para mostrar el popup al perder
   const [isGameOver, setIsGameOver] = useState(false);
+  // Estado para mostrar el popup de victoria
+  const [isWinner, setIsWinner] = useState(false);
   // Estado para la letra en el input
   const [inputLetter, setInputLetter] = useState("");
 
@@ -42,7 +44,19 @@ function App() {
     if (inputValue.match("^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$")) {
       if (inputValue !== "") {
         if (word.includes(inputValue)) {
-          setGoodLetters((prev) => [...prev, inputValue]);
+          setGoodLetters((prev) => {
+            const newGoodLetters = [...prev, inputValue];
+
+            // Verificar si todas las letras de la palabra han sido adivinadas
+            const uniqueWordLetters = [...new Set(word.split(""))]; // Letras únicas de la palabra
+            const uniqueGoodLetters = [...new Set(newGoodLetters)]; // Letras únicas acertadas
+
+            if (uniqueGoodLetters.length === uniqueWordLetters.length) {
+              setIsWinner(true); // Activar el popup de victoria
+            }
+
+            return newGoodLetters;
+          });
         } else if (!wrongLetters.includes(inputValue)) {
           if (wrongLetters.length < 12) {
             setWrongLetters((prev) => [...prev, inputValue]);
@@ -52,6 +66,7 @@ function App() {
         }
       }
     }
+    setInputLetter(""); // Limpia el input después de cada intento
   };
 
   const handleWord = (value) => {
@@ -96,13 +111,24 @@ function App() {
         <Footer />
       </div>
 
-      {/* POPUP MODAL */}
+      {/* POPUP DE DERROTA */}
       {isGameOver && (
         <div className="modal">
           <div className="modal-content">
             <h2>¡Has perdido! 😢</h2>
             <p>La palabra era: <strong>{word}</strong></p>
             <button onClick={handleReset}>Volver a jugar</button>
+          </div>
+        </div>
+      )}
+
+      {/* POPUP DE VICTORIA */}
+      {isWinner && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>¡Felicidades! 🎉</h2>
+            <p>Has adivinado la palabra: <strong>{word}</strong></p>
+            <button onClick={handleReset}>Jugar de nuevo</button>
           </div>
         </div>
       )}
