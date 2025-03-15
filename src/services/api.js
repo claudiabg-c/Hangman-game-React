@@ -1,11 +1,11 @@
-// Fichero src/services/api.js
+import words from './words.json';
+
 const callToApi = () => {
-  return fetch(`https://random-word-api.herokuapp.com/word?lang=es`)
-    .then((response) => response.json())
-    .then((response) => {      
-      const word = response[0]
-      return word;
-    });
+  return new Promise((resolve) => {
+    const randomIndex = Math.floor(Math.random() * words.words.length);
+    const word = words.words[randomIndex]; 
+    resolve(word);
+  });
 };
 
 export default callToApi;
